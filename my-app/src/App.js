@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-            Edit <code>src/App.js</code> and save to reload. Let's see how much till we break it.<br />UUUUUU hotupdate is available huh ? Testing still 
+            Edit <code>src/App.js</code> and save to reload. Let's see how much till we break it.<br />UUUUUU hotupdate is available huh ? <br /> Deployment is succesfull
         </p>
         <a
           className="App-link"
