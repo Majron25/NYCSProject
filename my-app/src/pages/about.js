@@ -1,9 +1,14 @@
 // pages/about.js
+
 export default function About() {
     return (
-        <div>
-            <h1>About Us</h1>
-            <p>This is the about page content.</p>
-        </div>
+        <div className=" sm:p-20 ">        
+      <ul className="list-decimal">
+            <li className="text-orange-500">Now this is a story all about how, my life got flipped-turned upside down</li>
+            <li>Now this is a story all about how, my life got flipped-turned upside down</li>
+            <li>Now this is a story all about how, my life got flipped-turned upside down</li>
+            <li>Now this is a story all about how, my life got flipped-turned upside down</li>
+        </ul>
+      </div>
     );
 }
