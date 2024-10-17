@@ -1,6 +1,5 @@
 ﻿import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Layout({ children }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,18 +14,16 @@ export default function Layout({ children }) {
   };
 
   return (
-    <div className="min-h-screen font-bold m-10">
-      <div className="flex items-center bg-black justify-center h-16 w-full">
-        <Image
-          src="/images/logo/NYCS_logo.png" // Path from the public folder
-          alt="NYCS Logo"
-          width={50}
-          height={50}
-          className="h-auto w-auto" // Ensures the image fits within the container without stretching
-        />
-      </div>
-      <header className="bg-red-600 p-3 text-white flex-auto">
-        <nav className="flex justify-end items-center">
+    <div className="min-h-screen font-bold m-5 max-sm:m-0">
+      <header className="bg-gray-900 p-3 text-white flex-auto rounded-lg">
+        <nav className="items-center flex  pr-20 pl-20">
+          <img
+            src="/images/logo/NYCS_logo.png" // Path from the public folder
+            alt="NYCS Logo"
+            className="h-20 w-auto items-start justify-start" // Ensures the image fits within the container without stretching
+          />
+          
+          
           {/* Hamburger Icon (right side for small screens) */}
           <button
             className="sm:hidden p-2 text-white ml-auto"
@@ -47,40 +44,39 @@ export default function Layout({ children }) {
               />
             </svg>
           </button>
-
           {/* Full menu for large screens */}
-          <div className="hidden sm:flex space-x-16">
-            <Link href="/" className="text-white no-underline">
+          <div className="hidden sm:flex space-x-16 ml-auto">
+            <Link href="/" className="text-white no-underline hover:text-black">
               Strona Główna
             </Link>
-            <Link href="/about" className="text-white no-underline">
+            <Link href="/about" className="text-white no-underline hover:text-black">
               O Nas
             </Link>
-            <Link href="/contact" className="text-white no-underline">
+            <Link href="/contact" className="text-white no-underline hover:text-black">
               Kontakt
             </Link>
 
             {/* Dropdown for Produkty */}
             <div className="relative group">
-              <Link href="#" className="text-white no-underline">
+              <Link href="#" className="text-white no-underline hover:text-black">
                 Produkty
               </Link>
-              <div className="hidden group-hover:block mt-1 rounded-md shadow-lg">
+              <div className="hidden group-hover:block mt-1 rounded-md shadow-lg bg-blue-500">
                 <Link
                   href="/kategorie"
-                  className="block py-2 text-white no-underline"
+                  className="block py-2 text-white no-underline hover:text-black"
                 >
                   Kategorie
                 </Link>
                 <Link
                   href="/oferty"
-                  className="block py-2 text-white no-underline"
+                  className="block py-2 text-white no-underline hover:text-black"
                 >
                   Oferty
                 </Link>
                 <Link
                   href="/promocje"
-                  className="block py-2 text-white no-underline"
+                  className="block py-2 text-white no-underline hover:text-black"
                 >
                   Promocje
                 </Link>
@@ -91,6 +87,23 @@ export default function Layout({ children }) {
               Konto
             </Link>
           </div>
+
+          <div className="relative w-80 ml-10">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full p-2 pl-4 pr-10 rounded-md bg-gray-700 text-white border-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {/* Search Icon */}
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <img
+              src="favicon.ico"
+              className="h-5 w-auto"
+              alt="...."
+              />
+            </div>
+          </div>
+
         </nav>
 
         {/* Mobile Menu (shown on small screens) */}

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import localFont from "next/font/local";
+import KatalogPrzedmiotow from '../components/KatalogPrzedmiotów';
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,6 +15,11 @@ const geistMono = localFont({
 });
 
 export default function Home() {
+
+  const items = [
+    { name: 'Produkt 1', price: 100 },
+    { name: 'Produkt 2', price: 200 },
+  ];
   return (
     <div
       className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
@@ -26,6 +33,7 @@ export default function Home() {
           height={38}
           priority
         />
+        <KatalogPrzedmiotow items={items} />
         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
           <li className="mb-2">
             Get started by editing, you meant this file?goood{" "}
