@@ -16,7 +16,7 @@ export default function Home() {
       <ProductC/>
       <Promotional_Items/>
       <div className="text-center">
-        DALEJ NIE ZNALAZŁEŚ CZEGO SZUKASZ? 
+        DALEJ NIE ZNALAZŁEŚ CZEGO SZUKASZ? LOL
       </div>
     </div>
   );
