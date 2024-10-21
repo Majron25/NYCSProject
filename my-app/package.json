@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "mysql2": "^3.11.3",
     "next": "14.2.15",
     "node": "^20.18.0",
     "react": "^18",
