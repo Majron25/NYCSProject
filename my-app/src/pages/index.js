@@ -32,7 +32,7 @@ export default function Home() {
       <div className="text-center">DALEJ NIE ZNALAZŁEŚ CZEGO SZUKASZ? LOL</div>
 
       {/* Display products below */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex">
         {products.map((product) => (
           <div key={product.id} className="p-4 border border-gray-200">
             <img src={product.product_image} alt={product.name} className="w-full h-auto" />

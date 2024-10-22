@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import 'tw-elements';
 
 const images = [
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
+  "/images/promocje/Promocja1.jpeg",
+  "/images/promocje/Promocja2.jpg",
+  "/images/promocje/Promocja3.jpg",
   // Add more images as needed
 ];
 
@@ -31,7 +31,7 @@ const ImageSlider = () => {
 
   return (
     <div id="carouselExample" className="relative w-full mt-4 bg-gray-700 " data-te-carousel-init data-te-carousel-slide>
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden h-96">
         {/* Slides */}
         <div className="flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {images.map((image, index) => (
@@ -39,7 +39,7 @@ const ImageSlider = () => {
               key={index}
               src={image}
               alt={`Promotion ${index + 1}`}
-              className="w-full object-contain h-96"
+              className="w-full h-full object-fill" // Try object-fill for stretching the image to fill the container
               style={{ flex: '0 0 100%' }} // Ensure each image takes up 100% of the slider's width
             />
           ))}
