@@ -1,11 +1,36 @@
-// src/components/Menu.js
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router"; // Import useRouter
+import { useAuth } from '../context/AuthContext';
 
 const Menu = () => {
+  const router = useRouter(); // Initialize useRouter
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const logoutTimer = setTimeout(() => {
+        handleLogout();
+      }, 3600000); // Logout after 1 hour
+
+      return () => clearTimeout(logoutTimer);
+    }
+  }, []);
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    setIsLoggedIn(user !== null);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setIsLoggedIn(false); // Update state to reflect logout
+    router.push('/'); // Redirect to home page
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -23,7 +48,7 @@ const Menu = () => {
             <img
               src="/images/logo/NYCS_logo.png" // Path from the public folder
               alt="NYCS Logo"
-              className="h-20 w-auto items-start justify-start mx-6" // Ensures the image fits within the container without stretching
+              className="h-20 w-auto items-start justify-start mx-6"
             />
           </Link>
           <div className="relative mx-4 flex-grow m-auto">
@@ -55,7 +80,14 @@ const Menu = () => {
                 </div>
               )}
             </div>
-            <Link href="/account" className="text-white no-underline">Konto</Link>
+            {isLoggedIn ? (
+              <>
+                <Link href="/account" className="text-white no-underline">Konto</Link>
+                <button onClick={handleLogout} className="text-white no-underline">Logout</button>
+              </>
+            ) : (
+              <Link href="/login" className="text-white no-underline">Logowanie</Link>
+            )}
           </div>
           <button className="xl:hidden p-2 text-white ml-auto" onClick={toggleMobileMenu}>
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +109,14 @@ const Menu = () => {
             <Link href="/oferty" className="block no-underline">Oferty</Link>
             <Link href="/promocje" className="block no-underline">Promocje</Link>
           </div>
-          <Link href="/account" className="block no-underline">Konto</Link>
+          {isLoggedIn ? (
+            <>
+              <Link href="/account" className="block no-underline">Konto</Link>
+              <button onClick={handleLogout} className="block no-underline">Logout</button>
+            </>
+          ) : (
+            <Link href="/login" className="block no-underline">Logowanie</Link>
+          )}
         </div>
       )}
     </>

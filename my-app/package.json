@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@vercel/postgres": "^0.10.0",
+    "axios": "^1.7.7",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.15",
     "node": "^20.18.0",
+    "pg": "^8.13.0",
     "react": "^18",
     "react-dom": "^18",
     "tw-elements": "^2.0.0"
