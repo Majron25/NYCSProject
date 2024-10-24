@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router"; // Import useRouter
+import { useRouter } from "next/router";
 import { useAuth } from '../context/AuthContext';
 
 const Menu = () => {
-  const router = useRouter(); // Initialize useRouter
+  const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const { isLoggedIn, setIsLoggedIn, user, setUser } = useAuth(); // Get user from context
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,14 +21,21 @@ const Menu = () => {
   }, []);
 
   useEffect(() => {
-    const user = localStorage.getItem('user');
-    setIsLoggedIn(user !== null);
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setIsLoggedIn(true);
+      setUser(parsedUser); // Set user data from stored user data
+    } else {
+      setIsLoggedIn(false);
+    }
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    setIsLoggedIn(false); // Update state to reflect logout
+    setIsLoggedIn(false);
+    setUser(null); // Clear user on logout
     router.push('/'); // Redirect to home page
   };
 
@@ -46,7 +53,7 @@ const Menu = () => {
         <nav className="items-center flex mr-10">
           <Link href="/">
             <img
-              src="/images/logo/NYCS_logo.png" // Path from the public folder
+              src="/images/logo/NYCS_logo.png"
               alt="NYCS Logo"
               className="h-20 w-auto items-start justify-start mx-6"
             />
@@ -83,6 +90,10 @@ const Menu = () => {
             {isLoggedIn ? (
               <>
                 <Link href="/account" className="text-white no-underline">Konto</Link>
+                {/* Show Management Link for Admin/Manager */}
+                {user && (user.role === 'admin' || user.role === 'manager') && (
+                  <Link href="/management" className="text-white no-underline hover:text-black">Management</Link>
+                )}
                 <button onClick={handleLogout} className="text-white no-underline">Logout</button>
               </>
             ) : (
@@ -112,6 +123,10 @@ const Menu = () => {
           {isLoggedIn ? (
             <>
               <Link href="/account" className="block no-underline">Konto</Link>
+              {/* Show Management Link for Admin/Manager in Mobile Menu */}
+              {user && (user.role === 'admin' || user.role === 'manager') && (
+                <Link href="/management" className="block no-underline">Management</Link>
+              )}
               <button onClick={handleLogout} className="block no-underline">Logout</button>
             </>
           ) : (

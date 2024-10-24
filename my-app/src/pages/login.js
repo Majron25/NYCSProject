@@ -8,7 +8,8 @@ const LoginPage = () => {
 
   const router = useRouter(); // Initialize the router
   
-  const { setIsLoggedIn } = useAuth(); // Get the setIsLoggedIn function
+  const { setUser, setIsLoggedIn } = useAuth(); // Get setUser and setIsLoggedIn from useAuth
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,35 +21,51 @@ const LoginPage = () => {
   // Handle Login
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await axios.post('/api/login', { email, password });
+      
+      // Log the response data to check its structure
+      console.log('Response Data:', response.data);
+  
       // Handle successful login
       console.log('Login successful', response.data);
       
       // Save user data and token in local storage
       localStorage.setItem('user', JSON.stringify(response.data.user)); // Assuming user data is in response.data.user
       localStorage.setItem('token', response.data.token); // Assuming you get a token for session
-
+  
       setIsLoggedIn(true); // Set logged in state to true
-
+      setUser(response.data.user); // Set user data here
+  
       // Redirect to home page
       router.push('/'); // Make sure to import useRouter from next/router
     } catch (err) {
+      console.error('Login error:', err); // Log error for debugging
       setError('Invalid credentials');
+    } finally {
+      setIsLoading(false);
     }
-  };  
+  };
+   
 
   // Handle Create Account
   const handleCreateAccount = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/signup', { firstName, lastName, email, password });
-      // Handle successful account creation
       console.log('Account created', response.data);
+      
+      // Automatically log the user in or redirect to login page
+      router.push('/login');
     } catch (err) {
-      setError('Error creating account');
-    }
-  };
+        if (err.response && err.response.data) {
+          setError(err.response.data.message || 'Error creating account');
+        } else {
+          setError('Error creating account');
+        }
+    }      
+  };  
 
   return (
     <div className="login-page">
@@ -65,7 +82,7 @@ const LoginPage = () => {
             <label>Password:</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</button>
           <p onClick={() => setIsCreatingAccount(true)}>Don't have an account? Sign up</p>
         </form>
       ) : (
