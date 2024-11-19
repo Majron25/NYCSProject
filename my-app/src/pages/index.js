@@ -17,7 +17,7 @@ export default function Home() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("/api/products", { cache: "no-store" })
+    fetch("/api/products-api/products", { cache: "no-store" })
       .then((response) => response.json())
       .then((data) => {
         console.log("Fetched Data:", data); // Log the fetched data to verify
