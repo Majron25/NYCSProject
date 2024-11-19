@@ -16,11 +16,11 @@ const categories = [
 
 const Product_Category = () => {
   return (
-    <div className="flex flex-wrap justify-center gap-8 max-w-full p-5 mt-1 bg-gray-700 "> {/* Adjust here */}
+    <div className="flex flex-wrap justify-center gap-16 max-w-full p-5 mt-1 bg-gray-700 h-auto"> {/* Adjust here */}
       {categories.map((category, index) => (
         <div key={index} className="flex flex-col items-center">
           <img src={category.icon} alt={category.name} className="h-24 w-24 hover:cursor-pointer" />
-          <span className="text-sm mt-1">{category.name}</span>
+          <span className="text-lg text-yellow-400">{category.name}</span>
         </div>
       ))}
     </div>
