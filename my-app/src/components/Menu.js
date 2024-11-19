@@ -73,24 +73,30 @@ const Menu = () => {
             </div>
           </div>
           <div className="hidden xl:flex space-x-16 ml-10 items-center">
-            <Link href="/about" className="text-white no-underline hover:text-black">O Nas</Link>
-            <Link href="/contact" className="text-white no-underline hover:text-black">Kontakt</Link>
-            <div className="relative">
-              <Link href="#" className="text-white no-underline hover:text-black" onClick={toggleDropdown}>
-                Produkty
-              </Link>
-              {isDropdownOpen && (
-                <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 rounded-md shadow-lg bg-blue-500 p-5 w-56 z-10">
-                  <Link href="/kategorie" className="block py-2 text-white no-underline hover:text-black">Kategorie</Link>
-                  <Link href="/oferty" className="block py-2 text-white no-underline hover:text-black">Oferty</Link>
-                  <Link href="/promocje" className="block py-2 text-white no-underline hover:text-black">Promocje</Link>
+          {(!user || (user && user.role !== 'admin' && user.role !== 'manager')) && (
+              <>
+                <Link href="/about" className="text-white no-underline hover:text-black">O Nas</Link>
+                <Link href="/contact" className="text-white no-underline hover:text-black">Kontakt</Link>
+                <div className="relative">
+                  <Link href="#" className="text-white no-underline hover:text-black" onClick={toggleDropdown}>
+                    Produkty
+                  </Link>
+                  {isDropdownOpen && (
+                    <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 rounded-md shadow-lg bg-blue-500 p-5 w-56 z-10">
+                      <Link href="/kategorie" className="block py-2 text-white no-underline hover:text-black">Kategorie</Link>
+                      <Link href="/oferty" className="block py-2 text-white no-underline hover:text-black">Oferty</Link>
+                      <Link href="/promocje" className="block py-2 text-white no-underline hover:text-black">Promocje</Link>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
             {isLoggedIn ? (
               <>
-                <Link href="/account" className="text-white no-underline">Konto</Link>
-                {/* Show Management Link for Admin/Manager */}
+                {/* Hide Konto for Admin/Manager */}
+                {user && (user.role !== 'admin' && user.role !== 'manager') && (
+                  <Link href="/account" className="text-white no-underline">Konto</Link>
+                )}                {/* Show Management Link for Admin/Manager */}
                 {user && (user.role === 'admin' || user.role === 'manager') && (
                   <Link href="/management" className="text-white no-underline hover:text-black">Management</Link>
                 )}

@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     // Handle GET request to fetch all products
     try {
-      const { rows } = await sql`SELECT * FROM products;`; // Fetch all products
+      const { rows } = await sql`SELECT * FROM products ORDER BY id ASC;`; // Fetch all products
       res.setHeader("Cache-Control", "no-store"); // Disable caching
       res.status(200).json({ products: rows });
     } catch (error) {

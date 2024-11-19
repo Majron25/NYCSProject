@@ -50,7 +50,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div>Hellossdad</div>
     </div>
   );
 }

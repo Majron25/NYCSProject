@@ -61,7 +61,7 @@ const ProductsTab = () => {
   const openAddModal = () => {
     setIsAddModalOpen(true);
   };
-
+  
   const closeAddModal = () => {
     setIsAddModalOpen(false);
   };

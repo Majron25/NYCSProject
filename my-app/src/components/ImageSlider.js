@@ -30,16 +30,16 @@ const ImageSlider = () => {
   }, []);
 
   return (
-    <div id="carouselExample" className="relative w-full mt-4 bg-gray-700 " data-te-carousel-init data-te-carousel-slide>
-      <div className="relative w-full overflow-hidden h-96">
+    <div id="carouselExample" className="relative w-full mt-4 bg-gray-700" data-te-carousel-init data-te-carousel-slide>
+      <div className="relative w-full overflow-hidden">
         {/* Slides */}
-        <div className="flex transition-transform duration-700" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        <div className="flex transition-transform duration-700 max-h-96" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           {images.map((image, index) => (
             <img
               key={index}
               src={image}
               alt={`Promotion ${index + 1}`}
-              className="w-full h-full object-fill" // Try object-fill for stretching the image to fill the container
+              className="object-cover" // Use object-cover and object-center to cover the container and center the image
               style={{ flex: '0 0 100%' }} // Ensure each image takes up 100% of the slider's width
             />
           ))}
@@ -49,7 +49,7 @@ const ImageSlider = () => {
       {/* Left Arrow */}
       <button
         onClick={() => { prevSlide(); clearInterval(); }}
-        className="absolute bottom-0 left-0 top-0 z-[1] flex w-[5%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        className="absolute bottom-0 left-0 top-0 z-[1] flex w-[5%] items-center justify-center border-0 bg-transparent p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
         data-te-carousel-prev
       >
         <span>&lt;</span>
@@ -58,7 +58,7 @@ const ImageSlider = () => {
       {/* Right Arrow */}
       <button
         onClick={() => { nextSlide(); clearInterval(); }}
-        className="absolute bottom-0 right-0 top-0 z-[1] flex w-[5%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+        className="absolute bottom-0 right-0 top-0 z-[1] flex w-[5%] items-center justify-center border-0 bg-transparent p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
         data-te-carousel-next
       >
         <span>&gt;</span>

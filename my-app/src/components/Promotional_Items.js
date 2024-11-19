@@ -54,7 +54,7 @@ const Promotional_Items = () => {
                 alt={`Promotion ${index + 1}`}
                 className="w-full object-contain h-48"
               />
-              <p className='text-center font-bold text-warning-800'>Kup MNIE</p>
+              <p className='text-center font-bold  text-yellow-400'>Kup MNIE</p>
             </div>
           ))}
         </div>
@@ -63,7 +63,7 @@ const Promotional_Items = () => {
       {/* Left Arrow */}
       <button
         onClick={prevSlide}
-        className={`absolute bottom-0 left-0 top-1/3 z-[1] flex w-[2%] h-[25%] items-center justify-center border-0 p-0 text-center text-white ${activeButton === 'prev' ? 'bg-gray-700 opacity-70' : 'bg-gray-600 opacity-30'} transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none`}
+        className={`absolute bg-none bottom-0 left-0 top-1/3 z-[1] flex w-[2%] h-[25%] items-center justify-center border-0 p-0 text-center text-white ${activeButton === 'prev' ? ' opacity-70' : 'opacity-30'} transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none`}
         data-te-carousel-prev
       >
         <span>&lt;</span>
@@ -72,7 +72,7 @@ const Promotional_Items = () => {
       {/* Right Arrow */}
       <button
         onClick={nextSlide}
-        className={`absolute bottom-0 right-0 top-1/3 z-[1] flex w-[2%] h-[25%] items-center justify-center border-0 p-0 text-center text-white ${activeButton === 'next' ? 'bg-gray-700 opacity-70' : 'bg-gray-600 opacity-30'} transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none`}
+        className={`absolute bg-none bottom-0 right-0 top-1/3 z-[1] flex w-[2%] h-[25%] items-center justify-center border-0 p-0 text-center text-white ${activeButton === 'next' ? ' opacity-70' : 'opacity-30'} transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none`}
         data-te-carousel-next
       >
         <span>&gt;</span>

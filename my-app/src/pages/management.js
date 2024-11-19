@@ -34,7 +34,7 @@ const ManagementPage = ({ user }) => {
             }`}
             onClick={() => setActiveTab("account")}
           >
-            Account
+            Accounts
           </button>
           <button
             className={`w-full py-2 px-4 text-left ${
