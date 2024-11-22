@@ -63,13 +63,19 @@ const CategoriesTab = () => {
   };
 
   const deleteCategory = () => {
+    console.log("Category to delete:", categoryToDelete);
+    if (!categoryToDelete || !categoryToDelete.id) {
+      console.error("Category id not found");
+      return;
+    }
+  
     fetch(`/api/categories/${categoryToDelete.id}`, { method: "DELETE" })
       .then(() => {
         setCategories(categories.filter(c => c.id !== categoryToDelete.id));
         closeDeleteModal();
       })
       .catch((error) => console.error("Error deleting category:", error));
-  };
+  };  
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
