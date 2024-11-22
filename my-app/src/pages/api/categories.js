@@ -83,6 +83,7 @@ export default async function handler(req, res) {
   } 
   else if (method === 'DELETE') {
     const { id } = req.query; // Category ID passed as a query parameter
+    console.log("Received ID for deletion:", id.id); // Should display the ID, e.g., "Received ID for deletion: 2"
 
     // Ensure the ID is provided
     if (!id) {
