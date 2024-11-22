@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const EditProductModal = ({ product, onClose, onUpdate }) => {
+const EditProductModal = ({ product, categories, onClose, onUpdate }) => {
   const [formData, setFormData] = useState({
     name: product.name,
     description: product.description,
     price: product.price,
     promotion: product.promotion,
+    category_id: product.category_id || '', // Default category, if any
   });
 
   const handleInputChange = (e) => {
@@ -78,6 +79,22 @@ const EditProductModal = ({ product, onClose, onUpdate }) => {
               />
               Promotion
             </label>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Category:</label>
+            <select
+              name="category_id"
+              value={formData.category_id}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded"
+            >
+              <option value="">Select Category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex justify-end">
             <button

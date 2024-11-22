@@ -2,9 +2,13 @@ import { sql } from "@vercel/postgres";
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    // Handle GET request to fetch all products
+    // Handle GET request to fetch all products with their categories
     try {
-      const { rows } = await sql`SELECT * FROM products;`; // Fetch all products
+      const { rows } = await sql`
+        SELECT products.*, categories.name AS category_name
+        FROM products
+        LEFT JOIN categories ON products.category_id = categories.id;
+      `; // Fetch all products and their associated category
       res.setHeader("Cache-Control", "no-store"); // Disable caching
       res.status(200).json({ products: rows });
     } catch (error) {
@@ -13,18 +17,18 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'POST') {
     // Handle POST request to add a new product
-    const { name, description, product_image, price, promotion } = req.body;
+    const { name, description, product_image, price, promotion, category_id } = req.body;
 
     // Ensure all required fields are provided
-    if (!name || !description || !product_image || price === undefined || promotion === undefined) {
+    if (!name || !description || !product_image || price === undefined || promotion === undefined || !category_id) {
       return res.status(400).json({ error: "All fields are required to add a product" });
     }
 
     try {
-      // Insert the new product into the database
+      // Insert the new product into the database, including category_id
       const result = await sql`
-        INSERT INTO products (name, description, product_image, price, promotion) 
-        VALUES (${name}, ${description}, ${product_image}, ${price}, ${promotion}) 
+        INSERT INTO products (name, description, product_image, price, promotion, category_id) 
+        VALUES (${name}, ${description}, ${product_image}, ${price}, ${promotion}, ${category_id}) 
         RETURNING *;
       `;
       
@@ -37,19 +41,19 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'PUT') {
     // Handle PUT request to update a product
-    const { name, description, price, promotion } = req.body;
+    const { name, description, price, promotion, category_id } = req.body;
     const { id } = req.query; // Get the 'id' from the URL
 
     // Ensure all required fields are present
-    if (!id || !name || !description || price === undefined || promotion === undefined) {
+    if (!id || !name || !description || price === undefined || promotion === undefined || !category_id) {
       return res.status(400).json({ error: "All fields are required to update a product" });
     }
 
     try {
-      // Update the product in the database
+      // Update the product in the database, including category_id
       await sql`
         UPDATE products 
-        SET name = ${name}, description = ${description}, price = ${price}, promotion = ${promotion} 
+        SET name = ${name}, description = ${description}, price = ${price}, promotion = ${promotion}, category_id = ${category_id} 
         WHERE id = ${id}
       `;
       res.status(200).json({ message: "Product updated successfully" });

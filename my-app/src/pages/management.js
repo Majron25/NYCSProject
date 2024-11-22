@@ -3,6 +3,7 @@ import withAuth from "../hoc/withAuth";
 import AccountTab from "../components/managementtabs/AccountTab";
 import SettingsTab from "../components/managementtabs/SettingsTab";
 import ProductsTab from "../components/managementtabs/ProductsTab";
+import CategoriesTab from "@/components/managementtabs/CategoriesTab";
 
 const ManagementPage = ({ user }) => {
   const [activeTab, setActiveTab] = useState("account"); // Default active tab is 'account'
@@ -15,6 +16,8 @@ const ManagementPage = ({ user }) => {
         return <SettingsTab />;
       case "products":
         return <ProductsTab />;
+      case "categories":
+        return <CategoriesTab />;
       default:
         return <AccountTab />;
     }
@@ -51,6 +54,14 @@ const ManagementPage = ({ user }) => {
             onClick={() => setActiveTab("products")}
           >
             Products
+          </button>
+          <button
+            className={`w-full py-2 px-4 text-left ${
+              activeTab === "categories" ? "bg-blue-500 text-white" : ""
+            }`}
+            onClick={() => setActiveTab("categories")}
+          >
+            Categories
           </button>
         </div>
       </div>

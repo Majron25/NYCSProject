@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const AddProductModal = ({ onClose, onAdd }) => {
   const [formData, setFormData] = useState({
@@ -7,7 +7,21 @@ const AddProductModal = ({ onClose, onAdd }) => {
     product_image: '',
     price: '',
     promotion: false,
+    category_id: '' ,
   });
+  const [categories, setCategories] = useState([]); // State to store categories
+  const [error, setError] = useState(null);
+
+  // Fetch categories from the database when the modal opens
+  useEffect(() => {
+    fetch('/api/categories') // Adjust endpoint if necessary
+      .then((response) => response.json())
+      .then((data) => setCategories(data.categories)) // Assuming 'categories' is the array in the response
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+        setError("Failed to load categories");
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -37,6 +51,8 @@ const AddProductModal = ({ onClose, onAdd }) => {
       <div className="bg-white p-6 rounded-md w-1/3">
         <h2 className="text-xl font-bold mb-4">Add New Product</h2>
 
+        {error && <p className="text-red-500">{error}</p>}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Name</label>
@@ -48,6 +64,24 @@ const AddProductModal = ({ onClose, onAdd }) => {
               className="w-full px-4 py-2 border rounded"
               required
             />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Category</label>
+            <select
+              name="category_id"  // Make sure this matches the backend field
+              value={formData.category_id}  // Ensure this reflects the state property
+              onChange={handleChange}
+              className="w-full px-4 py-2 border rounded"
+              required
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="mb-4">

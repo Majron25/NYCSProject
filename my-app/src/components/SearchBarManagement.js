@@ -11,12 +11,20 @@ const SearchBar = ({ onSearch }) => {
     onSearch(query); // Trigger search when the button is clicked or enter is pressed
   };
 
+  // Trigger search on pressing "Enter"
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <div className="search-bar">
       <input
         type="text"
         value={query}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown} // Add this line
         placeholder="Search products..."
         className="p-2 rounded-md border border-gray-300"
       />

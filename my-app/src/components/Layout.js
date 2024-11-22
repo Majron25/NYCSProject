@@ -15,7 +15,7 @@ export default function Layout({ children }) {
         <Menu />
         <main className="min-h-screen">{children}</main>
         <footer className="text-center bottom-0 w-full">
-          <p>
+          <p className="text-sm">
             © <span id="current-year"></span> NYCS - All rights reserved
           </p>
         </footer>
