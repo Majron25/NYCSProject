@@ -14,7 +14,7 @@ const AddProductModal = ({ onClose, onAdd }) => {
 
   // Fetch categories from the database when the modal opens
   useEffect(() => {
-    fetch('/api/categories') // Adjust endpoint if necessary
+    fetch('/api/categories/categories') // Adjust endpoint if necessary
       .then((response) => response.json())
       .then((data) => setCategories(data.categories)) // Assuming 'categories' is the array in the response
       .catch((error) => {
