@@ -17,6 +17,7 @@ const ProductsTab = () => {
   const [selectedCategory, setSelectedCategory] = useState(""); // New state for category filter
 
   useEffect(() => {
+    console.log('Fetching products...');
     fetch("/api/products-api/products")
       .then((response) => response.json())
       .then((data) => {
@@ -27,8 +28,8 @@ const ProductsTab = () => {
         console.error("Error fetching products:", error);
         setError("Failed to fetch products");
       });
-
-    fetch("/api/categories")
+  
+    fetch("/api/categories/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories);
@@ -39,7 +40,7 @@ const ProductsTab = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, []);  // Empty dependency array to run only once  
 
   const refreshProducts = () => {
     fetch("/api/products-api/products")

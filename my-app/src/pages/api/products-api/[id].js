@@ -1,10 +1,10 @@
 import { sql } from "@vercel/postgres";
 
 export default async function handler(req, res) {
+  const { id } = req.query;  // Get the `id` from the dynamic URL (e.g., /api/products-api/7)
   if (req.method === 'GET') {
     // Get the search query parameter
     const { query } = req.query;
-
     try {
       let rows;
 
@@ -56,10 +56,11 @@ export default async function handler(req, res) {
     }
   } else if (req.method === 'PUT') {
     // Handle PUT request to update a product
-    const { id, name, description, price, promotion, category_id } = req.body;
+    const { name, description, price, promotion, category_id } = req.body;
 
     // Ensure all required fields are present
     if (!id || !name || !description || price === undefined || promotion === undefined || category_id == undefined) {
+      console.log("The fields values:",id, name, description, price, promotion, category_id );
       return res.status(400).json({ error: "All fields are required to update a product" });
     }
 
@@ -67,7 +68,7 @@ export default async function handler(req, res) {
       // Update the product in the database
       await sql`
         UPDATE products 
-        SET name = ${name}, description = ${description}, price = ${price}, promotion = ${promotion}, category = ${category_id}
+        SET name = ${name}, description = ${description}, price = ${price}, promotion = ${promotion}, category_id = ${category_id}
         WHERE id = ${id}
       `;
       res.status(200).json({ message: "Product updated successfully" });

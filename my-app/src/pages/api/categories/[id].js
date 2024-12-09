@@ -2,6 +2,7 @@ import { sql } from "@vercel/postgres";
 
 export default async function handler(req, res) {
   const { method } = req;
+  const { id } = req.query;
 
   if (method === 'GET') {
     const { query } = req.query; // Search query parameter
@@ -55,7 +56,7 @@ export default async function handler(req, res) {
     }
   } 
   else if (method === 'PUT') {
-    const { id, name } = req.body;
+    const { name } = req.body;
 
     // Ensure all required fields are provided
     if (!id || !name) {
@@ -82,9 +83,7 @@ export default async function handler(req, res) {
     }
   } 
   else if (method === 'DELETE') {
-    const { id } = req.query; // Category ID passed as a query parameter
-    console.log("Received ID for deletion:", id.id); // Should display the ID, e.g., "Received ID for deletion: 2"
-
+    console.log("Received ID for deletion:", id); // Should display the ID, e.g., "Received ID for deletion: 2"
     // Ensure the ID is provided
     if (!id) {
       return res.status(400).json({ error: "Category ID is required" });
@@ -97,7 +96,6 @@ export default async function handler(req, res) {
         WHERE id = ${id}
         RETURNING *;
       `;
-
       if (result.rowCount === 0) {
         return res.status(404).json({ error: "Category not found" });
       }

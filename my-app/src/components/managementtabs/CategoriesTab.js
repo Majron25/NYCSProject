@@ -14,7 +14,7 @@ const CategoriesTab = () => {
 
   // Fetch categories when the component mounts
   useEffect(() => {
-    fetch("/api/categories")
+    fetch("/api/categories/categories")
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories); // assuming 'categories' is the array of categories
@@ -28,7 +28,7 @@ const CategoriesTab = () => {
   }, []);
 
   const refreshCategories = () => {
-    fetch("/api/categories")
+    fetch("/api/categories/categories")
       .then((response) => response.json())
       .then((data) => setCategories(data.categories))
       .catch((error) => console.error("Error refreshing categories:", error));
@@ -68,14 +68,13 @@ const CategoriesTab = () => {
       console.error("Category id not found");
       return;
     }
-
-    
     fetch(`/api/categories/${categoryToDelete.id}`, { method: "DELETE" })
       .then(() => {
         setCategories(categories.filter(c => c.id !== categoryToDelete.id));
         closeDeleteModal();
       })
       .catch((error) => console.error("Error deleting category:", error));
+      refreshCategories();
   };  
 
   if (loading) return <div>Loading...</div>;

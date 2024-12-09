@@ -4,7 +4,7 @@ const AddCategoryModal = ({ onClose, onAdd }) => {
   const [name, setName] = useState("");
 
   const handleSubmit = () => {
-    fetch("/api/categories", {
+    fetch("/api/categories/categories", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name }),
