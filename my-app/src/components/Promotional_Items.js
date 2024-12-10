@@ -42,10 +42,10 @@ const Promotional_Items = () => {
   };
 
   return (
-    <div id="promotionalCarousel" className="relative w-full mt-1 bg-gray-700 " data-te-carousel-init data-te-carousel-slide>
+    <div id="promotionalCarousel" className="relative w-full mt-1" data-te-carousel-init data-te-carousel-slide>
       <div className="relative w-full overflow-hidden">
         {/* Slides */}
-        <p className='text-center mt-5'>PROMOCJE !!!</p>
+        <p className='text-center mt-5'>TO DO: FIX THIS ------ PROMOCJE !!!</p>
         <div className="flex transition-transform duration-700" style={{ transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)` }}>
           {images.map((image, index) => (
             <div key={index} className="flex-shrink-0 w-1/6"> {/* Each item takes 1/6 of the width */}
@@ -54,7 +54,7 @@ const Promotional_Items = () => {
                 alt={`Promotion ${index + 1}`}
                 className="w-full object-contain h-48"
               />
-              <p className='text-center font-bold  text-yellow-400'>Kup MNIE</p>
+              <p className='text-center font-bold'>Kup MNIE</p>
             </div>
           ))}
         </div>
@@ -78,7 +78,6 @@ const Promotional_Items = () => {
         <span>&gt;</span>
       </button>
 
-      {/* Carousel indicators (optional)
       <div className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0">
         {Array.from({ length: Math.ceil(images.length / itemsToShow) }).map((_, index) => (
           <button
@@ -91,7 +90,7 @@ const Promotional_Items = () => {
             aria-label={`Slide ${index + 1}`}
           />
         ))}
-      </div> */}
+      </div>
     </div>
   );
 };

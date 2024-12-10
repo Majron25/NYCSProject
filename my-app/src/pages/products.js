@@ -1,11 +1,11 @@
 // pages/product.js
-import ProductsCategories from "../components/ProductsCatalogue";
+import ProductsCatalogue from "../components/ProductsCatalogue";
 
 export default function Products() {
   return (
       <main>
           <div>
-            <ProductsCategories/>
+            <ProductsCatalogue/>
           </div>
       </main>
   );

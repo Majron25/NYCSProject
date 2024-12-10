@@ -30,7 +30,7 @@ const ImageSlider = () => {
   }, []);
 
   return (
-    <div id="carouselExample" className="relative w-full mt-4 bg-gray-700" data-te-carousel-init data-te-carousel-slide>
+    <div id="carouselExample" className="relative w-full mt-4 bg-black bg-opacity-10 rounded-lg p-4" data-te-carousel-init data-te-carousel-slide>
       <div className="relative w-full overflow-hidden">
         {/* Slides */}
         <div className="flex transition-transform duration-700 max-h-96" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
@@ -39,7 +39,7 @@ const ImageSlider = () => {
               key={index}
               src={image}
               alt={`Promotion ${index + 1}`}
-              className="object-cover" // Use object-cover and object-center to cover the container and center the image
+              className="object-cover rounded-lg" // Use object-cover and object-center to cover the container and center the image
               style={{ flex: '0 0 100%' }} // Ensure each image takes up 100% of the slider's width
             />
           ))}

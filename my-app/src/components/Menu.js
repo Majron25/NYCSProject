@@ -88,8 +88,6 @@ const Menu = () => {
                   {isDropdownOpen && (
                     <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 rounded-md shadow-lg bg-blue-500 p-5 w-56 z-10">
                       <Link href="/products" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Wszystkie Produkty</Link>
-                      <Link href="/oferty" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Oferty</Link>
-                      <Link href="/promocje" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Promocje</Link>
                     </div>
                   )}
                 </div>
