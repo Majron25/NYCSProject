@@ -47,6 +47,10 @@ const Menu = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleLinkClick = () => {
+    setIsDropdownOpen(false);  // Close the dropdown when a link is clicked
+  };
+
   return (
     <>
       <header className="bg-gray-900 p-3 text-white rounded-lg">
@@ -83,9 +87,9 @@ const Menu = () => {
                   </Link>
                   {isDropdownOpen && (
                     <div className="absolute left-1/2 transform -translate-x-1/2 mt-1 rounded-md shadow-lg bg-blue-500 p-5 w-56 z-10">
-                      <Link href="/kategorie" className="block py-2 text-white no-underline hover:text-black">Kategorie</Link>
-                      <Link href="/oferty" className="block py-2 text-white no-underline hover:text-black">Oferty</Link>
-                      <Link href="/promocje" className="block py-2 text-white no-underline hover:text-black">Promocje</Link>
+                      <Link href="/products" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Wszystkie Produkty</Link>
+                      <Link href="/oferty" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Oferty</Link>
+                      <Link href="/promocje" className="block py-2 text-white no-underline hover:text-black" onClick={handleLinkClick} >Promocje</Link>
                     </div>
                   )}
                 </div>
@@ -122,7 +126,7 @@ const Menu = () => {
           <Link href="/contact" className="block no-underline">Kontakt</Link>
           <div>
             <p className="font-bold">Produkty</p>
-            <Link href="/kategorie" className="block no-underline">Kategorie</Link>
+            <Link href="/products" className="block no-underline">Wszystkie Produkty</Link>
             <Link href="/oferty" className="block no-underline">Oferty</Link>
             <Link href="/promocje" className="block no-underline">Promocje</Link>
           </div>

@@ -1,7 +1,7 @@
 const SettingsTab = () => {
   return (
     <div>
-      <h2>Settings</h2>
+      <h2>Website Settings</h2>
       <p>Manage your settings...</p>
     </div>
   );
