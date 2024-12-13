@@ -1,31 +1,29 @@
-// src/components/Promotional_Items.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'tw-elements';
-
-const images = [
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  "/images/logo/NYCS_logo.png",
-  // Add more images as needed
-];
+import Image from 'next/image';  // Assuming you're using Next.js Image for optimized images
 
 const Promotional_Items = () => {
+  const [products, setProducts] = useState([]); // Store the products with promotion
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeButton, setActiveButton] = useState(null); // State to track active button
   const itemsToShow = 6; // Number of items to show at once
 
+  useEffect(() => {
+    // Fetch products that have the promotion set to true
+    fetch("/api/products-api/products")  // Adjust the API endpoint if necessary
+      .then((response) => response.json())
+      .then((data) => {
+        const promotedProducts = data.products.filter(product => product.promotion === true);
+        setProducts(promotedProducts);
+      })
+      .catch((error) => {
+        console.error("Error fetching promotional products:", error);
+      });
+  }, []);
+
   // Function to move to the next slide
   const nextSlide = () => {
-    if (currentIndex < Math.ceil(images.length / itemsToShow) - 1) {
+    if (currentIndex < Math.ceil(products.length / itemsToShow) - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setActiveButton('next'); // Set active button to 'next'
       setTimeout(() => setActiveButton(null), 3000); // Reset after 300ms
@@ -43,23 +41,43 @@ const Promotional_Items = () => {
 
   return (
     <div id="promotionalCarousel" className="relative w-full mt-1" data-te-carousel-init data-te-carousel-slide>
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden p-4">
         {/* Slides */}
-        <p className='text-center mt-5'>TO DO: FIX THIS ------ PROMOCJE !!!</p>
         <div className="flex transition-transform duration-700" style={{ transform: `translateX(-${(currentIndex * 100) / itemsToShow}%)` }}>
-          {images.map((image, index) => (
-            <div key={index} className="flex-shrink-0 w-1/6"> {/* Each item takes 1/6 of the width */}
-              <img
-                src={image}
-                alt={`Promotion ${index + 1}`}
-                className="w-full object-contain h-48"
-              />
-              <p className='text-center font-bold'>Kup MNIE</p>
+          {products.map((product, index) => (
+            <div key={product?.id} className="flex-shrink-0 w-1/6 p-4"> {/* Each item takes 1/6 of the width */}
+              <button
+                className='
+                  hover:bg-blue-300 hover:text-white 
+                  transition-all duration-300 
+                  shadow-lg hover:shadow-xl 
+                  rounded-md
+                  focus:outline-none 
+                  p-4
+                  w-full
+                  flex flex-col justify-between
+                  h-full gap-2
+                  '
+              >
+              <div className="flex-grow">  {/* Content section */}
+                <Image
+                  src={product?.image || "/icons/default-product-image.jpg"}  // Default image if none
+                  alt={product?.name || "Product image"}
+                  width={300}
+                  height={300}
+                  className="w-full object-contain h-48"
+                />
+                <p className="text-center font-bold">{product?.name || "Unnamed Product"}</p>
+              </div>
+
+              <div className="flex items-center justify-end pt-2">  {/* Price section at the bottom */}
+                <p className="text-center font-semibold text-red-500">Promo Price! Only: {product?.price}</p>
+              </div>
+              </button>
             </div>
           ))}
         </div>
       </div>
-
       {/* Left Arrow */}
       <button
         onClick={prevSlide}
@@ -78,8 +96,9 @@ const Promotional_Items = () => {
         <span>&gt;</span>
       </button>
 
+      {/* Carousel indicators */}
       <div className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0">
-        {Array.from({ length: Math.ceil(images.length / itemsToShow) }).map((_, index) => (
+        {Array.from({ length: Math.ceil(products.length / itemsToShow) }).map((_, index) => (
           <button
             key={index}
             type="button"

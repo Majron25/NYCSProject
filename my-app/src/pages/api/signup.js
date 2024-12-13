@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       // Check if the email already exists
       const existingUser = await pool.query('SELECT * FROM Customers WHERE email = $1', [email]);
       if (existingUser.rows.length > 0) {
-        return res.status(400).json({ error: 'Email already exists' });
+        return res.status(400).json({ error: 'Email already existsasdasdas' });
       }
 
       // Hash the password
